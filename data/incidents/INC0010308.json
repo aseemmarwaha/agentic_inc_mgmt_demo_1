@@ -1,0 +1,49 @@
+{
+  "incident_details": {
+    "incident_id": "INC0010308",
+    "short_description": "Regarding lookup filter throws setEntityTypes error on Phone Call form",
+    "description": "When users open a Phone Call activity, the browser console shows 'setEntityTypes is not a function' and the Regarding lookup is not filtered to Accounts and Users as expected.",
+    "priority": "4 - Low",
+    "impact": "3 - Low",
+    "urgency": "3 - Low",
+    "category": "Software",
+    "subcategory": "Client Script",
+    "cmdb_ci": "Dynamics 365 Production Instance",
+    "assigned_group": "CRM Development Team",
+    "reporter": {
+      "name": "Ethan Brown",
+      "email": "e.brown@company.com",
+      "department": "Customer Service"
+    }
+  },
+  "technical_context": {
+    "environment": "Production",
+    "entity": "phonecall",
+    "form_name": "Phone Call Main Form",
+    "deployment_id": "REL_2024_MAY_S2"
+  },
+  "resolution": {
+    "resolution_code": "Solved Permanently",
+    "root_cause": "The script used a lookup control method that was not supported for the activity party/Regarding lookup scenario and was registered on the wrong event.",
+    "resolution_steps": [
+      "Reproduced the script error on the Phone Call form.",
+      "Confirmed the Regarding field control type and removed the unsupported setEntityTypes call.",
+      "Registered a supported pre-search filter for the lookup instead of changing entity types at runtime.",
+      "Added guards to check that the control exists before applying the filter.",
+      "Published the updated JavaScript web resource and verified the lookup filter applied without console errors."
+    ],
+    "resolved_date": "2024-05-21T15:10:00Z"
+  },
+  "source_inspiration": [
+    {
+      "type": "public_reference",
+      "title": "Regarding field filtering JavaScript error discussion",
+      "url": "https://www.reddit.com/r/learnjavascript/comments/1hxrozw"
+    },
+    {
+      "type": "public_reference",
+      "title": "Client API form context",
+      "url": "https://learn.microsoft.com/ko-kr/power-apps/developer/model-driven-apps/clientapi/clientapi-form-context"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "incident_details": {
+    "incident_id": "INC0010304",
+    "short_description": "Account import creates duplicate customers despite duplicate detection",
+    "description": "After a bulk Account import, users found multiple duplicate customer accounts with the same account name and tax registration number. Duplicate detection warnings were not triggered during the import.",
+    "priority": "3 - Moderate",
+    "impact": "2 - Medium",
+    "urgency": "2 - Medium",
+    "category": "Data Quality",
+    "subcategory": "Duplicate Detection",
+    "cmdb_ci": "Dynamics 365 Production Instance",
+    "assigned_group": "CRM Data Management Team",
+    "reporter": {
+      "name": "Oliver Smith",
+      "email": "o.smith@company.com",
+      "department": "Master Data"
+    }
+  },
+  "technical_context": {
+    "environment": "Production",
+    "entity": "account",
+    "form_name": "Account Import",
+    "deployment_id": "DATA_LOAD_2024_MAR_CUSTOMERS"
+  },
+  "resolution": {
+    "resolution_code": "Solved Permanently",
+    "root_cause": "Duplicate detection was enabled globally, but the Account table rule for Tax Registration Number had not been published, so match codes were not available for the import scenario.",
+    "resolution_steps": [
+      "Reviewed duplicate detection settings at organization, table, and operation level.",
+      "Created an Account duplicate detection rule using normalized Account Name and Tax Registration Number.",
+      "Published the rule so Dataverse generated match codes for existing Account records.",
+      "Re-ran the import in a sandbox with duplicate detection enabled and verified duplicate warnings were produced.",
+      "Merged confirmed duplicate Accounts and documented the import checklist for future data loads."
+    ],
+    "resolved_date": "2024-03-18T09:40:00Z"
+  },
+  "source_inspiration": [
+    {
+      "type": "public_reference",
+      "title": "Detect duplicate data with match codes and rules",
+      "url": "https://learn.microsoft.com/en-us/power-platform/admin/detect-duplicate-data"
+    },
+    {
+      "type": "public_reference",
+      "title": "Detect duplicate data using the Web API",
+      "url": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/webapi/manage-duplicate-detection-create-update"
+    }
+  ]
+}

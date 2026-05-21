@@ -1,0 +1,29 @@
+{
+  "incident_details": {
+    "incident_id": "INC0010301",
+    "short_description": "Duplicate contacts created by integration job",
+    "description": "Nightly integration created duplicate Contact records when the upstream customer id was missing.",
+    "priority": "3 - Moderate",
+    "impact": "2 - Medium",
+    "urgency": "3 - Low",
+    "category": "Software",
+    "subcategory": "Data Quality",
+    "cmdb_ci": "Dynamics 365 Production Instance"
+  },
+  "technical_context": {
+    "environment": "Production",
+    "entity": "contact",
+    "deployment_id": "REL_2023_NOV_S1"
+  },
+  "resolution": {
+    "resolution_code": "Solved Permanently",
+    "root_cause": "The integration matching rule skipped duplicate detection when upstream customer id was null.",
+    "resolution_steps": [
+      "Paused the nightly integration job.",
+      "Updated matching logic to use email and date of birth fallback keys.",
+      "Merged duplicate contacts with the data stewardship workflow.",
+      "Re-enabled the job and monitored the next run."
+    ],
+    "resolved_date": "2023-11-08T13:30:00Z"
+  }
+}

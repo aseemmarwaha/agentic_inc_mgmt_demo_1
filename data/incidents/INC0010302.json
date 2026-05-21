@@ -1,0 +1,49 @@
+{
+  "incident_details": {
+    "incident_id": "INC0010302",
+    "short_description": "Contact form web resource fails when Dealer Code is blank",
+    "description": "Users report a JavaScript error when opening the Contact Main form for records where the Dealer Code lookup has not been populated. The embedded dealer summary web resource remains blank.",
+    "priority": "4 - Low",
+    "impact": "3 - Low",
+    "urgency": "3 - Low",
+    "category": "Software",
+    "subcategory": "Client Script",
+    "cmdb_ci": "Dynamics 365 Production Instance",
+    "assigned_group": "CRM Development Team",
+    "reporter": {
+      "name": "Nina Patel",
+      "email": "n.patel@company.com",
+      "department": "Sales Operations"
+    }
+  },
+  "technical_context": {
+    "environment": "Production",
+    "entity": "contact",
+    "form_name": "Contact Main Form",
+    "deployment_id": "REL_2024_JAN_S1"
+  },
+  "resolution": {
+    "resolution_code": "Solved Permanently",
+    "root_cause": "The form JavaScript assumed the Dealer Code lookup always had a value and attempted to read the first lookup item without a null/length check.",
+    "resolution_steps": [
+      "Reproduced the issue on a Contact record where Dealer Code was empty.",
+      "Updated the form script to use executionContext.getFormContext() and retrieve the lookup with formContext.getAttribute('new_dealercode').getValue().",
+      "Added a null and array-length guard before reading lookup id/name values.",
+      "Changed the web resource iframe source only when a valid Dealer Code lookup exists.",
+      "Published the Contact form and verified records with and without Dealer Code load without script errors."
+    ],
+    "resolved_date": "2024-01-12T11:15:00Z"
+  },
+  "source_inspiration": [
+    {
+      "type": "public_reference",
+      "title": "Dynamics 365 JavaScript access to form field values",
+      "url": "https://stackoverflow.com/questions/41769525/dynamics-365-javascript-to-access-form-field-values"
+    },
+    {
+      "type": "public_reference",
+      "title": "Model-driven app Client API columns reference",
+      "url": "https://learn.microsoft.com/en-sg/power-apps/developer/model-driven-apps/clientapi/reference/attributes"
+    }
+  ]
+}

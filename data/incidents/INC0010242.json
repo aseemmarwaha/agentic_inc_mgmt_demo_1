@@ -1,0 +1,37 @@
+{
+  "incident_details": {
+    "incident_id": "INC0010242",
+    "short_description": "User unable to view 'Client Project' records",
+    "description": "New team members in the Project Management office are reporting they cannot see the 'Client Project' custom entity, although they can see Accounts and Contacts.",
+    "priority": "3 - Moderate",
+    "impact": "3 - Low",
+    "urgency": "2 - Medium",
+    "category": "Access/Security",
+    "subcategory": "Permissions",
+    "cmdb_ci": "Dynamics 365 Production Instance",
+    "assigned_group": "Identity and Access Management",
+    "reporter": {
+      "name": "Mark Smith",
+      "email": "mark.smith@company.com",
+      "department": "Project Management"
+    }
+  },
+  "technical_context": {
+    "environment": "Production",
+    "entity": "new_clientproject",
+    "security_role": "PMO Standard User",
+    "access_level": "User/Business Unit"
+  },
+  "resolution": {
+    "resolution_code": "Configuration Change",
+    "root_cause": "The 'PMO Standard User' security role was created but the Read/Write permissions for the custom 'Client Project' entity were not granted.",
+    "resolution_steps": [
+      "1. Navigated to Settings > Security > Security Roles.",
+      "2. Opened the 'PMO Standard User' role.",
+      "3. Located the 'Custom Entities' tab.",
+      "4. Updated 'Client Project' permissions to 'Business Unit' level for Read, Write, and Append.",
+      "5. Asked the user to refresh their browser and verify access."
+    ],
+    "resolved_date": "2023-10-26T09:00:00Z"
+  }
+}

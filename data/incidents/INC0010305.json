@@ -1,0 +1,49 @@
+{
+  "incident_details": {
+    "incident_id": "INC0010305",
+    "short_description": "Case timeline shows 'records could not be loaded' for support agents",
+    "description": "Support agents can open Case records but the Timeline control displays 'Records could not be loaded because of an unexpected error'. System Administrators do not see the issue.",
+    "priority": "3 - Moderate",
+    "impact": "2 - Medium",
+    "urgency": "2 - Medium",
+    "category": "Access/Security",
+    "subcategory": "Timeline Permissions",
+    "cmdb_ci": "Dynamics 365 Production Instance",
+    "assigned_group": "CRM Security Administration",
+    "reporter": {
+      "name": "Grace Kim",
+      "email": "g.kim@company.com",
+      "department": "Customer Service"
+    }
+  },
+  "technical_context": {
+    "environment": "Production",
+    "entity": "incident",
+    "form_name": "Case Main Form",
+    "deployment_id": "REL_2024_APR_S1"
+  },
+  "resolution": {
+    "resolution_code": "Solved Permanently",
+    "root_cause": "The Support Agent security role had Case privileges but lacked read privileges for one of the activity tables displayed in the Timeline control.",
+    "resolution_steps": [
+      "Confirmed the issue affected users with the Support Agent role and not System Administrators.",
+      "Compared Timeline activity types configured on the Case form with privileges granted to the Support Agent role.",
+      "Granted read access for the missing activity table at Business Unit scope.",
+      "Asked an affected user to refresh the browser and reopen the Case record.",
+      "Verified the Timeline loaded emails, phone calls, notes, and custom transcript activities without error."
+    ],
+    "resolved_date": "2024-04-09T10:20:00Z"
+  },
+  "source_inspiration": [
+    {
+      "type": "public_reference",
+      "title": "Records could not be loaded because of an unexpected error",
+      "url": "https://www.reddit.com/r/Dynamics365/comments/xcv7r3"
+    },
+    {
+      "type": "public_reference",
+      "title": "Sharing a model-driven app - assigning security roles and privileges",
+      "url": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/share-model-driven-app"
+    }
+  ]
+}

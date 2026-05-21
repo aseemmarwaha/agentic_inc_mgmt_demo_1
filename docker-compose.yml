@@ -1,0 +1,16 @@
+services:
+  incident-assistant:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DATA_DIR: /app/data
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o-mini}
+      OPENAI_REALTIME_MODEL: ${OPENAI_REALTIME_MODEL:-gpt-realtime}
+      OPENAI_REALTIME_VOICE: ${OPENAI_REALTIME_VOICE:-marin}
+      USE_OPENAI_EMBEDDINGS: ${USE_OPENAI_EMBEDDINGS:-false}
+      ENABLE_EXTERNAL_SEARCH: ${ENABLE_EXTERNAL_SEARCH:-true}
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped

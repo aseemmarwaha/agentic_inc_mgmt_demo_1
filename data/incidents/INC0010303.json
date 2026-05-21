@@ -1,0 +1,49 @@
+{
+  "incident_details": {
+    "incident_id": "INC0010303",
+    "short_description": "Custom Opportunity Business Process Flow not shown for sales users",
+    "description": "Sales users creating new Opportunity records are seeing the standard Sales Process instead of the custom Enterprise Opportunity Process. System Administrators can manually switch to the custom process.",
+    "priority": "3 - Moderate",
+    "impact": "2 - Medium",
+    "urgency": "3 - Low",
+    "category": "Configuration",
+    "subcategory": "Business Process Flow",
+    "cmdb_ci": "Dynamics 365 Production Instance",
+    "assigned_group": "CRM Platform Team",
+    "reporter": {
+      "name": "Mateo Ruiz",
+      "email": "m.ruiz@company.com",
+      "department": "Enterprise Sales"
+    }
+  },
+  "technical_context": {
+    "environment": "Production",
+    "entity": "opportunity",
+    "form_name": "Opportunity Main Form",
+    "deployment_id": "REL_2024_FEB_S2"
+  },
+  "resolution": {
+    "resolution_code": "Solved Permanently",
+    "root_cause": "The custom Business Process Flow was active, but its security role access and process order did not make it the first eligible process for the Sales Professional role.",
+    "resolution_steps": [
+      "Confirmed the custom Business Process Flow was active and associated with the Opportunity table.",
+      "Reviewed the Business Process Flow security role settings and added the Sales Professional role.",
+      "Opened the Business Process Flow designer and moved Enterprise Opportunity Process above the standard process in the process order.",
+      "Asked a non-admin sales test user to create a new Opportunity and verified the custom process loaded by default.",
+      "For existing Opportunities, used Switch Process where needed because process order primarily affects newly created records."
+    ],
+    "resolved_date": "2024-02-23T14:45:00Z"
+  },
+  "source_inspiration": [
+    {
+      "type": "public_reference",
+      "title": "Custom Business Process Flow not displaying on Opportunity",
+      "url": "https://stackoverflow.com/questions/79004623/dynamics-365-sales-custom-business-process-flow-not-displaying-on-opportunity"
+    },
+    {
+      "type": "public_reference",
+      "title": "Business process flow order and security roles",
+      "url": "https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/customize/business-process-flows-overview?view=op-9-1"
+    }
+  ]
+}

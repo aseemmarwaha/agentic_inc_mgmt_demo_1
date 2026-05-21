@@ -1,0 +1,44 @@
+{
+  "incident_details": {
+    "incident_id": "INC0010306",
+    "short_description": "Opportunity plugin repeatedly updates record and slows save",
+    "description": "Saving an Opportunity takes more than 20 seconds and plugin trace logs show the same post-update plugin step executing repeatedly for a single save operation.",
+    "priority": "2 - High",
+    "impact": "2 - Medium",
+    "urgency": "2 - Medium",
+    "category": "Software",
+    "subcategory": "Plugin",
+    "cmdb_ci": "Dynamics 365 Production Instance",
+    "assigned_group": "CRM Development Team",
+    "reporter": {
+      "name": "Sofia Martin",
+      "email": "s.martin@company.com",
+      "department": "Sales"
+    }
+  },
+  "technical_context": {
+    "environment": "Production",
+    "entity": "opportunity",
+    "form_name": "Opportunity Main Form",
+    "deployment_id": "REL_2024_APR_HOTFIX1"
+  },
+  "resolution": {
+    "resolution_code": "Solved Permanently",
+    "root_cause": "The post-update plugin updated the same Opportunity record without checking execution depth or whether the target field had already been calculated, causing repeated plugin execution.",
+    "resolution_steps": [
+      "Enabled plugin trace logging and confirmed repeated execution of the OpportunityMarginPlugin step.",
+      "Added an execution depth guard to exit when context.Depth is greater than 1.",
+      "Limited the plugin step filtering attributes to fields that actually affect margin calculation.",
+      "Changed the plugin to update only the calculated margin fields when values changed.",
+      "Deployed the updated assembly and verified Opportunity save time returned to normal."
+    ],
+    "resolved_date": "2024-04-19T17:05:00Z"
+  },
+  "source_inspiration": [
+    {
+      "type": "public_reference",
+      "title": "Dynamics 365 plugin error discussion",
+      "url": "https://stackoverflow.com/questions/75335420/dynamics-365-plugin-an-error-occurred-in-followupplugin-0x80040265"
+    }
+  ]
+}

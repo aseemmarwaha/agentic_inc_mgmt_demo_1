@@ -1,0 +1,37 @@
+{
+  "incident_details": {
+    "incident_id": "INC0010243",
+    "short_description": "Lead synchronization failed between Website and CRM",
+    "description": "Marketing team reports that leads submitted via the corporate website are not appearing in Dynamics 365. Potential loss of business leads.",
+    "priority": "1 - Critical",
+    "impact": "1 - High",
+    "urgency": "1 - High",
+    "category": "Integration",
+    "subcategory": "API/Webservice",
+    "cmdb_ci": "Azure Logic App - LeadSync",
+    "assigned_group": "Integration Middleware Team",
+    "reporter": {
+      "name": "Sarah Jenkins",
+      "email": "s.jenkins@company.com",
+      "department": "Marketing"
+    }
+  },
+  "technical_context": {
+    "environment": "Production",
+    "integration_tool": "Azure Logic Apps",
+    "authentication_method": "OAuth 2.0",
+    "error_message": "401 Unauthorized - Invalid Client Secret"
+  },
+  "resolution": {
+    "resolution_code": "Fixed",
+    "root_cause": "The Azure AD Client Secret used by the Logic App to authenticate with the Dynamics 365 Web API expired yesterday.",
+    "resolution_steps": [
+      "1. Checked Azure Logic App run history and confirmed '401 Unauthorized' errors.",
+      "2. Generated a new Client Secret in the Azure Active Directory (App Registration).",
+      "3. Updated the API Connection parameters in the Logic App with the new secret.",
+      "4. Manually re-triggered failed runs to push pending leads into CRM.",
+      "5. Set a calendar reminder/alert for secret expiration 30 days prior to next expiry."
+    ],
+    "resolved_date": "2023-10-26T11:15:00Z"
+  }
+}

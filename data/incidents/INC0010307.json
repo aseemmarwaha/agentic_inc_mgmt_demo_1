@@ -1,0 +1,49 @@
+{
+  "incident_details": {
+    "incident_id": "INC0010307",
+    "short_description": "Lead popup web resource cannot update parent form",
+    "description": "A custom popup opened from the Lead form is supposed to update the Topic field on the parent Lead, but users report that clicking Save in the popup does nothing.",
+    "priority": "4 - Low",
+    "impact": "3 - Low",
+    "urgency": "3 - Low",
+    "category": "Software",
+    "subcategory": "Client Script",
+    "cmdb_ci": "Dynamics 365 Production Instance",
+    "assigned_group": "CRM Development Team",
+    "reporter": {
+      "name": "Hannah Lee",
+      "email": "h.lee@company.com",
+      "department": "Marketing"
+    }
+  },
+  "technical_context": {
+    "environment": "Production",
+    "entity": "lead",
+    "form_name": "Lead Main Form",
+    "deployment_id": "REL_2024_MAY_S1"
+  },
+  "resolution": {
+    "resolution_code": "Solved by Workaround/Fix",
+    "root_cause": "The popup script attempted to use window.parent.Xrm.Page, but the popup was not embedded in the form. The parent form reference was available through window.opener for this browser flow.",
+    "resolution_steps": [
+      "Confirmed the web resource was opened in a separate popup window, not embedded in the Lead form.",
+      "Changed the popup script to check for window.opener before attempting to access the parent form.",
+      "Used the parent form context to set the Topic field and fire the onchange handler.",
+      "Added error handling that shows a user-friendly message if the popup is opened without a parent form.",
+      "Published the web resource and verified the Topic field updates on the Lead form."
+    ],
+    "resolved_date": "2024-05-07T08:55:00Z"
+  },
+  "source_inspiration": [
+    {
+      "type": "public_reference",
+      "title": "Dynamics 365 V9 web resource get context",
+      "url": "https://stackoverflow.com/questions/51485579/dynamics-365-v9-web-resource-get-context"
+    },
+    {
+      "type": "public_reference",
+      "title": "Client API form context",
+      "url": "https://learn.microsoft.com/ko-kr/power-apps/developer/model-driven-apps/clientapi/clientapi-form-context"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "incident_details": {
+    "incident_id": "INC0010245",
+    "short_description": "Credit Limit field missing from Account Form",
+    "description": "After the last sprint deployment, the 'Credit Limit' field has disappeared from the Main Account form for all users.",
+    "priority": "4 - Low",
+    "impact": "3 - Low",
+    "urgency": "2 - Medium",
+    "category": "Software",
+    "subcategory": "UI/UX",
+    "cmdb_ci": "Dynamics 365 Production Instance",
+    "assigned_group": "CRM Development Team",
+    "reporter": {
+      "name": "Alice Wong",
+      "email": "a.wong@company.com",
+      "department": "Finance"
+    }
+  },
+  "technical_context": {
+    "environment": "Production",
+    "entity": "account",
+    "form_name": "Account Main Form",
+    "deployment_id": "REL_2023_OCT_S2"
+  },
+  "resolution": {
+    "resolution_code": "Solved by Workaround/Fix",
+    "root_cause": "The field was accidentally removed from the form in the Development environment, and the change was captured in the solution exported to Production.",
+    "resolution_steps": [
+      "Verified that the field still exists in the system but is missing from the form layout.",
+      "Opened the Form Editor in the Development environment.",
+      "Re-added the 'Credit Limit' field to the 'Financials' section of the form.",
+      "Exported a hotfix solution and imported it into Production.",
+      "Published the form and verified the field is visible."
+    ],
+    "resolved_date": "2023-10-28T10:00:00Z"
+  }
+}
